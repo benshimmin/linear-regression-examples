@@ -1,0 +1,53 @@
+!!! HTML5
+%html
+    %head
+        %link{:rel => "stylesheet", :type => "text/css", :href => "http://fonts.googleapis.com/css?family=Vollkorn:700,400"}
+        %link{:rel => "stylesheet", :type => "text/css", :href => "css/master.css"}
+        %title Linear regression examples
+
+    %body
+        #wrapper
+            %h1 Linear regression examples
+
+            %p
+                An example of rendering lines of best fit using linear
+                regression with
+                <a href="http://raphaeljs.com/">Rapha&euml;l</a> and HTML5
+                Canvas.
+
+            %p
+                All code is on
+                <a href="http://github.com/benshimmin/lines-of-best-fit">GitHub</a>.
+
+            %form
+                %fieldset
+                    %p
+                        %label{:for => "sel_render"}
+                            Rendering mode
+                        %select{:id => "sel_render"}
+                            %option{:value => "colour"} Colour
+                            %option{:value => "wireframe"} Wireframe
+
+                    %p
+                        %label{:for => "cb_click_to_draw"}
+                            Click and drag to add points
+                        %input{:type => "checkbox", :id => "cb_click_to_add",
+                        :checked => "checked"}
+
+                    %p
+                        %input{:type => "button", :id => "generate",
+                        :value => "Generate random points"}
+
+                        %input{:type => "button", :id => "clear",
+                        :value => "Clear points" }
+
+            %h2 Rapha&euml;l
+            #canvas
+
+            %h2 HTML5 Canvas
+            %canvas{:width => "600px", :height => "500px"}
+
+
+        %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" }
+        %script{:src => "js/lib/raphael-2.1.0.min.js" }
+        %script{:src => "js/renderer.js" }
