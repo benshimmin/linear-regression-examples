@@ -114,6 +114,7 @@ class Renderer
 
     # bind event listeners to achieve the drag effect
     listen : =>
+
         @canvas.on "mousedown", (event) => @canvas.on "mousemove", @drag
         $(window).on "mouseup", => @canvas.off "mousemove"
 
@@ -122,7 +123,17 @@ class Renderer
     drag : (event) =>
         return unless $("#cb_click_to_add").is ":checked"
 
-        engine.addPoint event.offsetX, event.offsetY
+        # if we have event.offsetX...
+        if typeof event.offsetX isnt "undefined"
+            engine.addPoint event.offsetX, event.offsetY
+        else
+        # otherwise (eg. Firefox) simulate it
+            offset = $(event.target).offset()
+
+            engine.addPoint(
+                event.pageX - offset.left,
+                event.pageY - offset.top
+            )
 
     regenerate : => @redraw()
 
@@ -133,14 +144,15 @@ class RaphaelRenderer extends Renderer
     constructor : (target) ->
         # Raphaël's canvas
         @paper  = Raphael target
-        @width  = @paper.width
-        @height = @paper.height
+        # offset width and height by a pixel
+        @width  = @paper.width  - 1
+        @height = @paper.height - 1
 
         @init()
 
     drawAxes : =>
-        @paper.path "M0,0L0,#{@width}"
-        @paper.path "M0,#{@height}L#{@width},#{@height}"
+        @paper.path "M1,#{@height}L#{@width},#{@height}"
+        @paper.path "M1,1L1,#{@width}"
 
     render : =>
         @drawPoints false, "wireframe"
@@ -243,7 +255,7 @@ class CanvasRenderer extends Renderer
         @context.beginPath()
         @context.arc x, y, radius, 0, Math.PI * 2, false
         if engine.mode is "colour"
-            @context.fillStyle = colour
+            @context.fillStyle = "#" + colour
             @context.fill()
         else
             @context.stroke()
