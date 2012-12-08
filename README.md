@@ -34,3 +34,7 @@ quite straightforward in each case.
 (Create a `css/` directory into which the Sass files will be compiled.)
 
     $ sass -c src/sass/master.sass:css/master.css
+
+## Licence
+
+This software is released under the MIT License.
