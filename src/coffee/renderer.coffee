@@ -228,14 +228,13 @@ class CanvasRenderer extends Renderer
         @path new Point(0, 0), new Point(0, @width)
         @path new Point(0, @height), new Point(@width, @height)
 
-    # clear the canvas, draw the points in the appropriate mode, and
-    # then draw the line of best fit
-    redraw : (mode) =>
+    # clear the canvas, draw the points, and then draw the line of best fit
+    redraw : =>
         @clear()
-        @drawPoints mode
+        @drawPoints()
         @drawBestFit()
 
-    drawPoints : (mode = "colour") =>
+    drawPoints : =>
         @circle(point.x, point.y, 5, point.colour) for point in engine.points
 
     drawBestFit : =>
