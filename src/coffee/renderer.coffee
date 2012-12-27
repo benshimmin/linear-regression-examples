@@ -191,7 +191,7 @@ class RaphaelRenderer extends Renderer
 
     # redraw the line of best fit, removing it first if it already exists
     drawBestFit : =>
-        # SVG doesn't like a line two have fewer than two points (funny, that)
+        # SVG doesn't like a line to have fewer than two points (funny, that)
         return if engine.points.length < 2
 
         @line.remove() if @line
